@@ -26,13 +26,22 @@
     src=&quot;github.com/maoivy/6s063-currency/src/main.js&quot; 
     type=&quot;module&quot;
 &gt;
-&lt;/script&gt;
-        </pre>
+&lt;/script&gt;</pre>
         <h2 id="html">html</h2>
         <h3>Attributes</h3>
         <p>
-            The HTML element contains a <span class="expr">label</span> attribute to allow you to describe the value.
+            The component contains <span class="expr">default-input-val</span>, <span class="expr">default-input-currency</span>,
+            and <span class="expr">default-output-currency</span> attributes to allow you to initialize the component.
         </p>
+        <p>
+            For example, to initialize the component to convert 5 dollars from USD to CAD:
+        </p>
+        <pre>
+&lt;currency-converter 
+    default-input-val=&quot;5&quot;
+    default-input-currency=&quot;USD&quot;
+    default-output-currency=&quot;CAD&quot;
+&gt;&lt;/currency-converter&gt;</pre>
         <h3>Structure</h3>
         <pre>
 &lsaquo;currency-converter label='price'&rsaquo;
@@ -62,8 +71,7 @@
     &lsaquo;/div&rsaquo;
 
     &lsaquo;div id='graph' part='graph'&rsaquo;&lsaquo;/div&rsaquo;
-&lsaquo;/currency-converter&rsaquo;
-        </pre>
+&lsaquo;/currency-converter&rsaquo;</pre>
         <h2 id="css">css</h2>
         <h3>Parts</h3>
         <p>

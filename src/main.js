@@ -9,9 +9,6 @@ class CurrencyConverter extends HTMLElement {
 
         <label for="inputCurrency">Input Currency</label>
         <select name="inputCurrency" id="input-currency">
-          <option value="USD">USD</option>
-          <option value="CAD">CAD</option>
-          <option value="EUR">EUR</option>
         </select>
 
         <label for="outputVal">Output Value</label>
@@ -19,9 +16,6 @@ class CurrencyConverter extends HTMLElement {
 
         <label for="outputCurrency">Output Currency</label>
         <select name="outputCurrency" id="output-currency">
-          <option value="USD">USD</option>
-          <option value="CAD">CAD</option>
-          <option value="EUR">EUR</option>
         </select>
 
         <button id="convert-button">Convert</button>
@@ -39,7 +33,19 @@ class CurrencyConverter extends HTMLElement {
 	}
 
   #render () {
-		this.inputVal.value = 5;
+    const currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
+    for (const currency of currencies) {
+      const option = document.createElement('option');
+      option.value = currency;
+      option.innerHTML = currency;
+      this.inputCurrency.appendChild(option.cloneNode(true));
+      this.outputCurrency.appendChild(option.cloneNode(true));
+    }
+
+		this.inputVal.value = this.getAttribute("default-input-val");
+    this.inputCurrency.value = this.getAttribute("default-input-currency");
+    this.outputCurrency.value = this.getAttribute("default-output-currency");
+
     const apiKey = '46abbabccf1a90d432c5';
     const apiURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=' + apiKey;
     this.convertButton.addEventListener("click", async (evt) => {
@@ -48,7 +54,7 @@ class CurrencyConverter extends HTMLElement {
       const conversionRate = data[query];
 
       const converted = this.inputVal.value * conversionRate;
-      this.outputVal.value = converted;
+      this.outputVal.value = converted.toFixed(2);
     })
 	}
 }
