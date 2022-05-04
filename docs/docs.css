@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap');
+
+:root {
+	--borders: #b3b3b3;
+	--text: #525252;
+}
+
+body {
+	padding: 4vh 5vw;
+	color: var(--text);
+    font: 14px Montserrat, sans-serif;
+}
+
+p, li {
+	line-height: 1.5em;
+}
+
+figure {
+	margin: 0em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+li + li {
+    margin-top: 0.25em;
+}
+
+img {
+    width: 840px;
+}
+
+.expr {
+    padding: 0em 0.5em;
+    background-color: #f0f0f0;
+    font-family: monospace;
+    color: #f35d5d;
+}
