@@ -6,6 +6,82 @@
 		<link rel="stylesheet" href="docs.css" />
 	</head>
 	<body>
-		<h1>Docs: currency component</h1>
+		<h1>docs: currency component</h1>
+        <h2>table of contents</h2>
+        <ul>
+            <li><a href="#overview">overview</a></li>
+            <li><a href="#html">html</a></li>
+            <li><a href="#css">css</a></li>
+            <li><a href="#js">js</a></li>
+        </ul>
+        <h2 id="overview">overview</h2>
+        <p>
+            This component takes in a given value and currency pair and converts the value from one currency to the other.
+        </p>
+        <p>
+            Install the component by inserting the following code in your HTML's <span class="expr">&lt;head&gt;</span>:
+        </p>
+        <pre>
+&lt;script 
+    src=&quot;github.com/maoivy/6s063-currency/src/main.js&quot; 
+    type=&quot;module&quot;
+&gt;
+&lt;/script&gt;
+        </pre>
+        <h2 id="html">html</h2>
+        <h3>Attributes</h3>
+        <p>
+            The HTML element contains a <span class="expr">label</span> attribute to allow you to describe the value.
+        </p>
+        <h3>Structure</h3>
+        <pre>
+&lsaquo;currency-converter label='price'&rsaquo;
+    &lsaquo;div id='inputs' part='inputs'&rsaquo;
+        &lsaquo;label&rsaquo; Input Value
+            &lsaquo;input type='value' name="inputVal" id='inputVal'&rsaquo;
+        &lsaquo;/label&rsaquo;
+
+        &lsaquo;label for="input-currency"&rsaquo;Input Currency&lsaquo;/label&rsaquo;
+
+        &lsaquo;select name="input-currency" id="input-currency"&rsaquo;
+            &lsaquo;option value=USD&rsaquo;USD&lsaquo;/option&rsaquo;
+        &lsaquo;/select&rsaquo;
+
+
+        &lsaquo;label&rsaquo; Input Value
+            &lsaquo;input type='value' name="inputVal" id='inputVal'&rsaquo;
+        &lsaquo;/label&rsaquo;
+
+        &lsaquo;label for="input-currency"&rsaquo;Input Currency&lsaquo;/label&rsaquo;
+
+        &lsaquo;select name="input-currency" id="input-currency"&rsaquo;
+            &lsaquo;option value=USD&rsaquo;USD&lsaquo;/option&rsaquo;
+        &lsaquo;/select&rsaquo;
+
+        &lsaquo;button id="convert-button"&rsaquo;Convert&lsaquo;/button&rsaquo;
+    &lsaquo;/div&rsaquo;
+
+    &lsaquo;div id='graph' part='graph'&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/currency-converter&rsaquo;
+        </pre>
+        <h2 id="css">css</h2>
+        <h3>Parts</h3>
+        <p>
+            The <span class="expr">currency-converter</span> has three customizable parts: 
+            <span class="expr">convert-button</span>,
+            <span class="expr">value</span>,
+            and <span class="expr">label</span>.
+        </p>
+        <h2 id="js">js</h2>
+        <h3>Events</h3>
+        <p>
+            The <span class="expr">currency-converter</span> responds to <span class="expr">click</span> events on the 
+            <span class="expr">convert-button</span> button, at which point it recalculates the currency with the new
+            input values.
+        </p>
+        <h3>Accessors</h3>
+        <p>
+            inputVal, outputVal, inputCurrency, outputCurrency, label
+        </p>
 	</body>
 </html>

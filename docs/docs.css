@@ -3,6 +3,8 @@
 :root {
 	--borders: #b3b3b3;
 	--text: #525252;
+    --code-background: #575757;
+    --code-text: #efefef;
 }
 
 body {
@@ -35,4 +37,14 @@ img {
     background-color: #f0f0f0;
     font-family: monospace;
     color: #f35d5d;
+}
+
+pre {
+    background-color: var(--code-background);
+    color: var(--code-text);
+    padding: 1em;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
