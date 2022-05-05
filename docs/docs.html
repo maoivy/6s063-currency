@@ -50,7 +50,7 @@
 &lt;div part=&quot;inputs&quot;&gt;
     &lt;div part=&quot;group&quot;&gt;
     &lt;label for=&quot;inputVal&quot; part=&quot;label&quot;&gt;Input Value&lt;/label&gt;
-    &lt;input type=&quot;number&quot; name=&quot;inputVal&quot; id=&quot;input-val&quot; placeholder=&quot;Input value&quot; part=&quot;input-val&quot;&gt;
+    &lt;input type=&quot;number&quot; name=&quot;inputVal&quot; id=&quot;input-val&quot; placeholder=&quot;Amount to convert...&quot; part=&quot;input-val&quot;&gt;
     &lt;/div&gt;
 
     &lt;div part=&quot;group&quot;&gt;
@@ -77,6 +77,7 @@
 
 &lt;button id=&quot;convert-button&quot; part=&quot;convert-button&quot;&gt;Convert&lt;/button&gt;
 &lt;/div&gt;</pre>
+
         <h2 id="css">css</h2>
         <h3>Parts</h3>
         <p>
@@ -91,6 +92,7 @@
                 <li>and the <span class="expr">label</span> for each option</li>
             </ul>
         </p>
+
         <h2 id="js">js</h2>
         <h3>Events</h3>
         <p>
@@ -100,7 +102,12 @@
         </p>
         <h3>Accessors</h3>
         <p>
-            inputVal, outputVal, inputCurrency, outputCurrency, label
+            The following variables can be accessed:
+            <ul>
+                <li><span class="expr">expanded</span> (reflected attribute-property)</li>
+                <li><span class="expr">inputVal</span> and <span class="expr">outputVal</span></li>
+                <li><span class="expr">inputCurrency</span> and <span class="expr">outputCurrency</span></li>
+            </ul>
         </p>
 	</body>
 </html>

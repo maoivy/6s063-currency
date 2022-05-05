@@ -7,7 +7,7 @@ class CurrencyConverter extends HTMLElement {
         <div part="inputs">
           <div part="group">
             <label for="inputVal" part="label">Input Value</label>
-            <input type="number" name="inputVal" id="input-val" placeholder="Input value" part="input-val">
+            <input type="number" name="inputVal" id="input-val" placeholder="Amount to convert..." part="input-val">
           </div>
 
           <div part="group">
@@ -35,10 +35,27 @@ class CurrencyConverter extends HTMLElement {
         <button id="convert-button" part="convert-button">Convert</button>
     </div>
 		`;
-    this.inputVal = this.shadowRoot.querySelector("#input-val");
-    this.outputVal = this.shadowRoot.querySelector("#output-val");
-    this.inputCurrency = this.shadowRoot.querySelector("#input-currency");
-    this.outputCurrency = this.shadowRoot.querySelector("#output-currency");
+    this.inputValInput = this.shadowRoot.querySelector("#input-val");
+    this.inputVal = this.getAttribute("default_input_val");
+    this.inputValInput.addEventListener("input", (e) => {
+      this.inputVal = this.inputValInput.value;
+    });
+
+    this.outputValDisplay = this.shadowRoot.querySelector("#output-val");
+    this.outputVal = null;
+
+    this.inputCurrencyInput = this.shadowRoot.querySelector("#input-currency");
+    this.inputCurrency = this.getAttribute("default_input_currency");
+    this.inputCurrencyInput.addEventListener("input", (e) => {
+      this.inputCurrency = this.inputCurrencyInput.value;
+    });
+    
+    this.outputCurrencyInput = this.shadowRoot.querySelector("#output-currency");
+    this.outputCurrency = this.getAttribute("default_output_currency");
+    this.outputCurrencyInput.addEventListener("input", (e) => {
+      this.outputCurrency = this.outputCurrencyInput.value;
+    });
+
     this.convertButton = this.shadowRoot.querySelector("#convert-button");
 	}
 
@@ -71,28 +88,22 @@ class CurrencyConverter extends HTMLElement {
       const option = document.createElement('option');
       option.value = currency;
       option.innerHTML = currency;
-      this.inputCurrency.appendChild(option.cloneNode(true));
-      this.outputCurrency.appendChild(option.cloneNode(true));
+      this.inputCurrencyInput.appendChild(option.cloneNode(true));
+      this.outputCurrencyInput.appendChild(option.cloneNode(true));
     }
 
-		this.inputVal.value = this.getAttribute("default_input_val");
-    const default_input_currency = this.getAttribute("default_input_currency");
-    const default_output_currency = this.getAttribute("default_output_currency");
-    if (currencies.includes(default_input_currency)) {
-      this.inputCurrency.value = default_input_currency;
-    }
-    if (currencies.includes(default_output_currency)) {
-      this.outputCurrency.value = default_output_currency;
-    }
+    this.inputCurrencyInput.value = this.inputCurrency;
+    this.outputCurrencyInput.value = this.outputCurrency;
+    this.inputValInput.value = this.inputVal;
 
     const convertURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=' + apiKey;
     this.convertButton.addEventListener("click", async (evt) => {
-      const query = this.inputCurrency.value + '_' + this.outputCurrency.value;
+      const query = this.inputCurrencyInput.value + '_' + this.outputCurrencyInput.value;
       const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
       const conversionRate = data[query];
 
-      const converted = this.inputVal.value * conversionRate;
-      this.outputVal.innerHTML = converted.toFixed(2);
+      const converted = this.inputValInput.value * conversionRate;
+      this.outputValDisplay.innerHTML = converted.toFixed(2);
     })
 	}
 }
