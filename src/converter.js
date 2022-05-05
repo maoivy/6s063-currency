@@ -4,24 +4,32 @@ class CurrencyConverter extends HTMLElement {
 		this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
 		<div id="currency-converter">
-        <div class="inputs" part="inputs">
-          <label for="inputVal" part="label">Input Value</label>
-          <input type="number" name="inputVal" id="input-val" placeholder="Input value" part="input-val">
+        <div part="inputs">
+          <div part="group">
+            <label for="inputVal" part="label">Input Value</label>
+            <input type="number" name="inputVal" id="input-val" placeholder="Input value" part="input-val">
+          </div>
 
-          <label for="inputCurrency" part="label">Input Currency</label>
-          <select name="inputCurrency" id="input-currency">
-            <option value="" disabled selected>From...</option>
-          </select>
+          <div part="group">
+            <label for="inputCurrency" part="label">Input Currency</label>
+            <select name="inputCurrency" id="input-currency">
+              <option value="" disabled selected>From...</option>
+            </select>
+          </div>
         </div>
 
-        <div class="outputs" part="outputs">
-          <label for="outputVal" part="label">Output Value</label>
-          <input type="number" name="outputVal" id="output-val" part="output-val" disabled>
+        <div part="outputs">
+          <div part="group">
+            <label for="outputVal" part="label">Output Value</label>
+            <div id="output-val" part="output-val"></div>
+          </div>
 
-          <label for="outputCurrency" part="label">Output Currency</label>
-          <select name="outputCurrency" id="output-currency">
-          <option value="" disabled selected>To...</option>
-          </select>
+          <div part="group">
+            <label for="outputCurrency" part="label">Output Currency</label>
+            <select name="outputCurrency" id="output-currency">
+            <option value="" disabled selected>To...</option>
+            </select>
+          </div>
         </div>
 
         <button id="convert-button" part="convert-button">Convert</button>
@@ -34,12 +42,31 @@ class CurrencyConverter extends HTMLElement {
     this.convertButton = this.shadowRoot.querySelector("#convert-button");
 	}
 
+  #expanded = false;
+
+  get init() { return this.#expanded; }
+	set init(v) { this.#expanded = v; this.setAttribute("expanded", v); }
+
+	static get observedAttributes() { return ["expanded"] }
+
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "expanded") this.#expanded = newValue;
+    this.#render();
+	}
+
   connectedCallback() {
 		this.#render();
 	}
 
-  #render () {
-    const currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
+  async #render () {
+    const apiKey = '46abbabccf1a90d432c5';
+    const currenciesURL = 'https://free.currconv.com/api/v7/currencies?apiKey=' + apiKey;
+
+    let currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
+    if (this.#expanded) {
+      const response = await fetch(currenciesURL).then((response => response.json()));
+      currencies = Object.keys(response.results);
+    } 
     for (const currency of currencies) {
       const option = document.createElement('option');
       option.value = currency;
@@ -48,19 +75,24 @@ class CurrencyConverter extends HTMLElement {
       this.outputCurrency.appendChild(option.cloneNode(true));
     }
 
-		this.inputVal.value = this.getAttribute("default-input-val");
-    this.inputCurrency.value = this.getAttribute("default-input-currency");
-    this.outputCurrency.value = this.getAttribute("default-output-currency");
+		this.inputVal.value = this.getAttribute("default_input_val");
+    const default_input_currency = this.getAttribute("default_input_currency");
+    const default_output_currency = this.getAttribute("default_output_currency");
+    if (currencies.includes(default_input_currency)) {
+      this.inputCurrency.value = default_input_currency;
+    }
+    if (currencies.includes(default_output_currency)) {
+      this.outputCurrency.value = default_output_currency;
+    }
 
-    const apiKey = '46abbabccf1a90d432c5';
-    const apiURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=' + apiKey;
+    const convertURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=' + apiKey;
     this.convertButton.addEventListener("click", async (evt) => {
       const query = this.inputCurrency.value + '_' + this.outputCurrency.value;
-      const data = await fetch(apiURL + '&q=' + query).then((response) => response.json());
+      const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
       const conversionRate = data[query];
 
       const converted = this.inputVal.value * conversionRate;
-      this.outputVal.value = converted.toFixed(2);
+      this.outputVal.innerHTML = converted.toFixed(2);
     })
 	}
 }

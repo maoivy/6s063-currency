@@ -32,42 +32,50 @@
         <h2 id="html">html</h2>
         <h3>Attributes</h3>
         <p>
-            The component contains <span class="expr">default-input-val</span>, <span class="expr">default-input-currency</span>,
-            and <span class="expr">default-output-currency</span> attributes to allow you to initialize the component.
+            The component has one reflected attribute-property, <span class="expr">expanded</span>,
+            that determines the list of currencies shown. By default, the 
+            component displays a short list of the most commonly-used currencies; if <span class="expr">expanded</span> is 
+            set to <span class="expr">true</span>, the full list of available currencies is used.
         </p>
         <p>
-            For example, to initialize the component to convert 5 dollars from USD to CAD:
+            In addition, the component also features a number of non-reflected attributes to allow you to initialize the component:
+            <span class="expr">default_input_val</span>, <span class="expr">default_input_currency</span>,
+            and <span class="expr">default_output_currency</span>.
+        </p>
+        <p>
+            For example, to initialize the component to convert 5 dollars from USD to CAD, with the full currency list:
         </p>
         <pre>
-&lt;currency-converter 
-    default-input-val=&quot;5&quot;
-    default-input-currency=&quot;USD&quot;
-    default-output-currency=&quot;CAD&quot;
-&gt;&lt;/currency-converter&gt;</pre>
-        <h3>Structure</h3>
-        <pre>
 &lt;div id=&quot;currency-converter&quot;&gt;
-    &lt;div class=&quot;inputs&quot; part=&quot;inputs&quot;&gt;
-        &lt;label for=&quot;inputVal&quot; part=&quot;label&quot;&gt;Input Value&lt;/label&gt;
-        &lt;input type=&quot;number&quot; name=&quot;inputVal&quot; id=&quot;input-val&quot; placeholder=&quot;Input value&quot; part=&quot;input-val&quot;&gt;
+&lt;div part=&quot;inputs&quot;&gt;
+    &lt;div part=&quot;group&quot;&gt;
+    &lt;label for=&quot;inputVal&quot; part=&quot;label&quot;&gt;Input Value&lt;/label&gt;
+    &lt;input type=&quot;number&quot; name=&quot;inputVal&quot; id=&quot;input-val&quot; placeholder=&quot;Input value&quot; part=&quot;input-val&quot;&gt;
+    &lt;/div&gt;
 
-        &lt;label for=&quot;inputCurrency&quot; part=&quot;label&quot;&gt;Input Currency&lt;/label&gt;
-        &lt;select name=&quot;inputCurrency&quot; id=&quot;input-currency&quot;&gt;
+    &lt;div part=&quot;group&quot;&gt;
+    &lt;label for=&quot;inputCurrency&quot; part=&quot;label&quot;&gt;Input Currency&lt;/label&gt;
+    &lt;select name=&quot;inputCurrency&quot; id=&quot;input-currency&quot;&gt;
         &lt;option value=&quot;&quot; disabled selected&gt;From...&lt;/option&gt;
-        &lt;/select&gt;
+    &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div part=&quot;outputs&quot;&gt;
+    &lt;div part=&quot;group&quot;&gt;
+    &lt;label for=&quot;outputVal&quot; part=&quot;label&quot;&gt;Output Value&lt;/label&gt;
+    &lt;div id=&quot;output-val&quot; part=&quot;output-val&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;div class=&quot;outputs&quot; part=&quot;outputs&quot;&gt;
-        &lt;label for=&quot;outputVal&quot; part=&quot;label&quot;&gt;Output Value&lt;/label&gt;
-        &lt;input type=&quot;number&quot; name=&quot;outputVal&quot; id=&quot;output-val&quot; part=&quot;output-val&quot; disabled&gt;
-
-        &lt;label for=&quot;outputCurrency&quot; part=&quot;label&quot;&gt;Output Currency&lt;/label&gt;
-        &lt;select name=&quot;outputCurrency&quot; id=&quot;output-currency&quot;&gt;
-        &lt;option value=&quot;&quot; disabled selected&gt;To...&lt;/option&gt;
-        &lt;/select&gt;
+    &lt;div part=&quot;group&quot;&gt;
+    &lt;label for=&quot;outputCurrency&quot; part=&quot;label&quot;&gt;Output Currency&lt;/label&gt;
+    &lt;select name=&quot;outputCurrency&quot; id=&quot;output-currency&quot;&gt;
+    &lt;option value=&quot;&quot; disabled selected&gt;To...&lt;/option&gt;
+    &lt;/select&gt;
     &lt;/div&gt;
+&lt;/div&gt;
 
-    &lt;button id=&quot;convert-button&quot; part=&quot;convert-button&quot;&gt;Convert&lt;/button&gt;
+&lt;button id=&quot;convert-button&quot; part=&quot;convert-button&quot;&gt;Convert&lt;/button&gt;
 &lt;/div&gt;</pre>
         <h2 id="css">css</h2>
         <h3>Parts</h3>
