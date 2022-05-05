@@ -4,21 +4,27 @@ class CurrencyConverter extends HTMLElement {
 		this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
 		<div id="currency-converter">
-        <label for="inputVal">Input Value</label>
-        <input type="number" name="inputVal" id="input-val">
+        <div class="inputs" part="inputs">
+          <label for="inputVal" part="label">Input Value</label>
+          <input type="number" name="inputVal" id="input-val" placeholder="Input value" part="input-val">
 
-        <label for="inputCurrency">Input Currency</label>
-        <select name="inputCurrency" id="input-currency">
-        </select>
+          <label for="inputCurrency" part="label">Input Currency</label>
+          <select name="inputCurrency" id="input-currency">
+            <option value="" disabled selected>From...</option>
+          </select>
+        </div>
 
-        <label for="outputVal">Output Value</label>
-        <input type="number" name="outputVal" id="output-val" disabled>
+        <div class="outputs" part="outputs">
+          <label for="outputVal" part="label">Output Value</label>
+          <input type="number" name="outputVal" id="output-val" part="output-val" disabled>
 
-        <label for="outputCurrency">Output Currency</label>
-        <select name="outputCurrency" id="output-currency">
-        </select>
+          <label for="outputCurrency" part="label">Output Currency</label>
+          <select name="outputCurrency" id="output-currency">
+          <option value="" disabled selected>To...</option>
+          </select>
+        </div>
 
-        <button id="convert-button">Convert</button>
+        <button id="convert-button" part="convert-button">Convert</button>
     </div>
 		`;
     this.inputVal = this.shadowRoot.querySelector("#input-val");

@@ -44,48 +44,49 @@
 &gt;&lt;/currency-converter&gt;</pre>
         <h3>Structure</h3>
         <pre>
-&lsaquo;currency-converter label='price'&rsaquo;
-    &lsaquo;div id='inputs' part='inputs'&rsaquo;
-        &lsaquo;label&rsaquo; Input Value
-            &lsaquo;input type='number' name="inputVal" id='inputVal'&rsaquo;
-        &lsaquo;/label&rsaquo;
+&lt;div id=&quot;currency-converter&quot;&gt;
+    &lt;div class=&quot;inputs&quot; part=&quot;inputs&quot;&gt;
+        &lt;label for=&quot;inputVal&quot; part=&quot;label&quot;&gt;Input Value&lt;/label&gt;
+        &lt;input type=&quot;number&quot; name=&quot;inputVal&quot; id=&quot;input-val&quot; placeholder=&quot;Input value&quot; part=&quot;input-val&quot;&gt;
 
-        &lsaquo;label for="input-currency"&rsaquo;Input Currency&lsaquo;/label&rsaquo;
+        &lt;label for=&quot;inputCurrency&quot; part=&quot;label&quot;&gt;Input Currency&lt;/label&gt;
+        &lt;select name=&quot;inputCurrency&quot; id=&quot;input-currency&quot;&gt;
+        &lt;option value=&quot;&quot; disabled selected&gt;From...&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
 
-        &lsaquo;select name="input-currency" id="input-currency"&rsaquo;
-            &lsaquo;option value=USD&rsaquo;USD&lsaquo;/option&rsaquo;
-        &lsaquo;/select&rsaquo;
+    &lt;div class=&quot;outputs&quot; part=&quot;outputs&quot;&gt;
+        &lt;label for=&quot;outputVal&quot; part=&quot;label&quot;&gt;Output Value&lt;/label&gt;
+        &lt;input type=&quot;number&quot; name=&quot;outputVal&quot; id=&quot;output-val&quot; part=&quot;output-val&quot; disabled&gt;
 
+        &lt;label for=&quot;outputCurrency&quot; part=&quot;label&quot;&gt;Output Currency&lt;/label&gt;
+        &lt;select name=&quot;outputCurrency&quot; id=&quot;output-currency&quot;&gt;
+        &lt;option value=&quot;&quot; disabled selected&gt;To...&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
 
-        &lsaquo;label&rsaquo; Output Value
-            &lsaquo;input type='number' name="outputVal" id='outputVal' disabled&rsaquo;
-        &lsaquo;/label&rsaquo;
-
-        &lsaquo;label for="input-currency"&rsaquo;Output Currency&lsaquo;/label&rsaquo;
-
-        &lsaquo;select name="outputput-currency" id="outputput-currency"&rsaquo;
-            &lsaquo;option value=USD&rsaquo;USD&lsaquo;/option&rsaquo;
-        &lsaquo;/select&rsaquo;
-
-        &lsaquo;button id="convert-button"&rsaquo;Convert&lsaquo;/button&rsaquo;
-    &lsaquo;/div&rsaquo;
-
-    &lsaquo;div id='graph' part='graph'&rsaquo;&lsaquo;/div&rsaquo;
-&lsaquo;/currency-converter&rsaquo;</pre>
+    &lt;button id=&quot;convert-button&quot; part=&quot;convert-button&quot;&gt;Convert&lt;/button&gt;
+&lt;/div&gt;</pre>
         <h2 id="css">css</h2>
         <h3>Parts</h3>
         <p>
-            The <span class="expr">currency-converter</span> has three customizable parts: 
-            <span class="expr">convert-button</span>,
-            <span class="expr">value</span>,
-            and <span class="expr">label</span>.
+            The <span class="expr">currency-converter</span> has many customizable parts:
+            <ul>
+                <li><span class="expr">convert-button</span></li>
+                <li><span class="expr">input-val</span> and <span class="expr">output-val</span></li>
+                <li>
+                    <span class="expr">inputs</span> and <span class="expr">outputs</span> (if the user wishes to rearrange
+                    the layout of the component)
+                </li>
+                <li>and the <span class="expr">label</span> for each option</li>
+            </ul>
         </p>
         <h2 id="js">js</h2>
         <h3>Events</h3>
         <p>
             The <span class="expr">currency-converter</span> responds to <span class="expr">click</span> events on the 
-            <span class="expr">convert-button</span> button, at which point it recalculates the currency with the new
-            input values.
+            <span class="expr">convert-button</span> button, which triggers the recalculation of the currency conversion
+            with new input values.
         </p>
         <h3>Accessors</h3>
         <p>
