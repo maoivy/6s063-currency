@@ -21,7 +21,7 @@ class CurrencyConverter extends HTMLElement {
         <div part="outputs">
           <div part="group">
             <label for="outputVal" part="label">Output Value</label>
-            <div id="output-val" part="output-val"></div>
+            <span id="output-val" part="output-val"></span>
           </div>
 
           <div part="group">
