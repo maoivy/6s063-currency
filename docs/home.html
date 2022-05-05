@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Home - Currency Component</title>
+		<link rel="stylesheet" href="docs.css" />
+        <script 
+            src="../src/main.js" 
+            type="module"
+        >
+        </script>
+	</head>
+	<body>
+        <nav>
+            <span>Home</span>
+            <a href="./docs.html">Docs</a>
+            <a href="./existing-components.html">Existing Components</a>
+        </nav>
+		<h1>home</h1>
+        <h2>overview</h2>
+        <p>
+            This component takes in a given value and currency pair and converts the value from one currency to the other.
+        </p>
+        <h2>demos</h2>
+        <h3>Converting 5 USD to CAD</h3>
+        <currency-converter 
+            default-input-val="5"
+            default-input-currency="USD"
+            default-output-currency="CAD"
+        ></currency-converter>
+
+        <h3>Converting 100 JPY to USD</h3>
+        <currency-converter 
+            default-input-val="100"
+            default-input-currency="JPY"
+            default-output-currency="CAD"
+        ></currency-converter>
+
+        <h3>GBP to EUR converter</h3>
+        <currency-converter 
+            default-input-currency="GBP"
+            default-output-currency="EUR"
+        ></currency-converter>
+
+        <h3>Unit conversion between any two currencies</h3>
+        <currency-converter 
+            default-input-val="1"
+        ></currency-converter>
+
+        <h3>Open-ended (no default specified) converter</h3>
+        <currency-converter></currency-converter>
+	</body>
+</html>

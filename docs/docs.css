@@ -5,13 +5,32 @@
 	--text: #525252;
     --code-background: #303030;
     --code-text: #efefef;
-    --highlight: #8b9eb6;
+    --highlight: #383838;
 }
 
 body {
 	padding: 4vh 5vw;
 	color: var(--text);
     font: 14px Montserrat, sans-serif;
+}
+
+a {
+    color: var(--highlight);
+}
+
+nav {
+    gap: 1em;
+}
+
+nav span, nav a {
+    padding: 0.25em 0.75em;
+    font-weight: bold;
+}
+
+nav a {
+    background-color: var(--highlight);
+    color: white;
+    text-decoration: none;
 }
 
 p, li {
