@@ -12,7 +12,7 @@ class CurrencyConverter extends HTMLElement {
 
           <div part="group">
             <label for="inputCurrency" part="label">Input Currency</label>
-            <select name="inputCurrency" id="input-currency">
+            <select name="inputCurrency" id="input-currency" part="currency-select">
               <option value="" disabled selected>From...</option>
             </select>
           </div>
@@ -26,7 +26,7 @@ class CurrencyConverter extends HTMLElement {
 
           <div part="group">
             <label for="outputCurrency" part="label">Output Currency</label>
-            <select name="outputCurrency" id="output-currency">
+            <select name="outputCurrency" id="output-currency" part="currency-select">
             <option value="" disabled selected>To...</option>
             </select>
           </div>
