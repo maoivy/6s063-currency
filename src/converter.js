@@ -102,8 +102,9 @@ class CurrencyConverter extends HTMLElement {
       const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
       const conversionRate = data[query];
 
-      const converted = this.inputValInput.value * conversionRate;
-      this.outputValDisplay.innerHTML = converted.toFixed(2);
+      const converted = (this.inputValInput.value * conversionRate).toFixed(2);
+      this.outputVal = converted;
+      this.outputValDisplay.innerHTML = converted;
     })
 	}
 }
