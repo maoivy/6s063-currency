@@ -61,29 +61,39 @@ class CurrencyConverter extends HTMLElement {
 
   #expanded = false;
 
-  get init() { return this.#expanded; }
-	set init(v) { this.#expanded = v; this.setAttribute("expanded", v); }
+  get expanded() { return this.#expanded; }
+	set expanded(v) { this.#expanded = v; this.setAttribute("expanded", v); }
 
 	static get observedAttributes() { return ["expanded"] }
 
-	attributeChangedCallback(name, oldValue, newValue) {
+	async attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "expanded") this.#expanded = newValue;
-    this.#render();
+    await this.#setCurrencies();
 	}
 
   connectedCallback() {
 		this.#render();
 	}
 
-  async #render () {
-    const apiKey = '46abbabccf1a90d432c5';
-    const currenciesURL = 'https://free.currconv.com/api/v7/currencies?apiKey=' + apiKey;
+  async #setCurrencies() {
+    const currenciesURL = 'https://free.currconv.com/api/v7/currencies?apiKey=46abbabccf1a90d432c5';
 
-    let currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
-    if (this.#expanded) {
+    let currencies;
+    if (this.#expanded === true || this.#expanded === 'true') {
       const response = await fetch(currenciesURL).then((response => response.json()));
       currencies = Object.keys(response.results);
-    } 
+    } else {
+      currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
+    }
+
+    // clear currencies except for the placeholder option
+    while(this.inputCurrencyInput.firstChild.nextSibling.nextSibling) {
+      this.inputCurrencyInput.firstChild.nextSibling.nextSibling.remove();
+    }
+    while(this.outputCurrencyInput.firstChild.nextSibling.nextSibling) {
+      this.outputCurrencyInput.firstChild.nextSibling.nextSibling.remove();
+    }
+
     for (const currency of currencies) {
       const option = document.createElement('option');
       option.value = currency;
@@ -91,12 +101,16 @@ class CurrencyConverter extends HTMLElement {
       this.inputCurrencyInput.appendChild(option.cloneNode(true));
       this.outputCurrencyInput.appendChild(option.cloneNode(true));
     }
+  }
 
-    this.inputCurrencyInput.value = this.inputCurrency;
-    this.outputCurrencyInput.value = this.outputCurrency;
+  async #render () {
+    await this.#setCurrencies();
+
     this.inputValInput.value = this.inputVal;
+    if (this.inputCurrency) this.inputCurrencyInput.value = this.inputCurrency;
+    if (this.outputCurrency) this.outputCurrencyInput.value = this.outputCurrency;
 
-    const convertURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=' + apiKey;
+    const convertURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=46abbabccf1a90d432c5';
     this.convertButton.addEventListener("click", async (evt) => {
       const query = this.inputCurrencyInput.value + '_' + this.outputCurrencyInput.value;
       const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
