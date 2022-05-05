@@ -123,4 +123,4 @@ class CurrencyConverter extends HTMLElement {
 	}
 }
 
-export { CurrencyConverter };
+customElements.define('currency-converter', CurrencyConverter);
