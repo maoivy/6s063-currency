@@ -113,7 +113,13 @@
         <h2 id="js">js</h2>
         <h3>Events</h3>
         <p>
-            The <span class="expr">currency-converter</span> responds to <span class="expr">click</span> events on the 
+            The <span class="expr">currency-converter</span> fires a custom <span class="expr">converted</span> event 
+            each time a value is successfully converted. The event details contain all the conversation information: the
+            <span class="expr">inputVal</span>, <span class="expr">inputCurrency</span>, <span class="expr">outputCurrency</span>,
+            <span class="expr">outputVal</span>, and <span class="expr">exchangeRate</span>.
+        </p>
+        <p>
+            The element also has one internal event: <span class="expr">click</span> events on the 
             <span class="expr">convert-button</span> button, which triggers the recalculation of the currency conversion
             with new input values.
         </p>

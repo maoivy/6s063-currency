@@ -114,11 +114,22 @@ class CurrencyConverter extends HTMLElement {
     this.convertButton.addEventListener("click", async (evt) => {
       const query = this.inputCurrencyInput.value + '_' + this.outputCurrencyInput.value;
       const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
-      const conversionRate = data[query];
+      const exchangeRate = data[query];
 
-      const converted = (this.inputValInput.value * conversionRate).toFixed(2);
+      const converted = (this.inputValInput.value * exchangeRate).toFixed(2);
       this.outputVal = converted;
       this.outputValDisplay.innerHTML = converted;
+
+
+      let evt = new CustomEvent("converted", {
+        detail: { inputVal: this.inputVal,
+                  inputCurrency: this.inputCurrency,
+                  outputCurrency: this.outputCurrency,
+                  outputVal: this.outputVal,
+                  exchangeRate,
+                }
+      });
+      this.dispatchEvent(evt);
     })
 	}
 }
