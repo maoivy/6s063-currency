@@ -121,7 +121,7 @@ class CurrencyConverter extends HTMLElement {
       this.outputValDisplay.innerHTML = converted;
 
 
-      let evt = new CustomEvent("converted", {
+      let convertedEvent = new CustomEvent("converted", {
         detail: { inputVal: this.inputVal,
                   inputCurrency: this.inputCurrency,
                   outputCurrency: this.outputCurrency,
@@ -129,7 +129,7 @@ class CurrencyConverter extends HTMLElement {
                   exchangeRate,
                 }
       });
-      this.dispatchEvent(evt);
+      this.dispatchEvent(convertedEvent);
     })
 	}
 }
