@@ -1,3 +1,12 @@
+const myHeaders = new Headers();
+myHeaders.append("apikey", "2SuK1XEYjOI1x7LHDmVxGCAm0CYGD5LN");
+
+const requestOptions = {
+  method: 'GET',
+  redirect: 'follow',
+  headers: myHeaders
+};
+
 class CurrencyConverter extends HTMLElement {
 	constructor() {
 		super();
@@ -76,12 +85,12 @@ class CurrencyConverter extends HTMLElement {
 	}
 
   async #setCurrencies() {
-    const currenciesURL = 'https://free.currconv.com/api/v7/currencies?apiKey=46abbabccf1a90d432c5';
+    const currenciesURL = 'https://api.apilayer.com/exchangerates_data/symbols';
 
     let currencies;
     if (this.#expanded === true || this.#expanded === 'true') {
-      const response = await fetch(currenciesURL).then((response => response.json()));
-      currencies = Object.keys(response.results);
+      const response = await fetch(currenciesURL, requestOptions).then((response => response.json()));
+      currencies = Object.keys(response.symbols);
     } else {
       currencies = ['USD', 'CAD', 'GBP', 'EUR', 'JPY', 'AUD', 'CHF', 'CNY']
     }
@@ -110,23 +119,20 @@ class CurrencyConverter extends HTMLElement {
     if (this.inputCurrency) this.inputCurrencyInput.value = this.inputCurrency;
     if (this.outputCurrency) this.outputCurrencyInput.value = this.outputCurrency;
 
-    const convertURL = 'https://free.currconv.com/api/v7/convert?compact=ultra&apiKey=46abbabccf1a90d432c5';
+    const convertURL = 'https://api.apilayer.com/exchangerates_data/convert?';
     this.convertButton.addEventListener("click", async (evt) => {
-      const query = this.inputCurrencyInput.value + '_' + this.outputCurrencyInput.value;
-      const data = await fetch(convertURL + '&q=' + query).then((response) => response.json());
-      const exchangeRate = data[query];
+      const query = "to=" + this.inputCurrencyInput.value + '&from=' + this.outputCurrencyInput.value + "&amount=" + this.inputValInput.value;
+      const data = await fetch(convertURL + query, requestOptions).then((response) => response.json());
+      const converted = data.result.toFixed(2);
 
-      const converted = (this.inputValInput.value * exchangeRate).toFixed(2);
       this.outputVal = converted;
       this.outputValDisplay.innerHTML = converted;
-
 
       let convertedEvent = new CustomEvent("converted", {
         detail: { inputVal: this.inputVal,
                   inputCurrency: this.inputCurrency,
                   outputCurrency: this.outputCurrency,
                   outputVal: this.outputVal,
-                  exchangeRate,
                 }
       });
       this.dispatchEvent(convertedEvent);
